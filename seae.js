@@ -54,7 +54,7 @@ var render = function(){
 }
 
 function detectemote(e){
-	var value = document.getElementById("emotein").value.toLowerCase().replace(/:/g,'');
+	var value = document.getElementById("emotein").value.replace(/:/g,'');
 	if(e.keyCode == 13){
 		if (emotes.indexOf(value) == -1) emotes.push(value);
 		document.getElementById("emotein").parentNode.removeChild(document.getElementById("emotein"));
@@ -70,7 +70,7 @@ function detectemote(e){
 }
 
 function detectbg(e){
-	var value = document.getElementById("emotein").value.toLowerCase().replace(/:/g,'');
+	var value = document.getElementById("emotein").value.replace(/:/g,'');
 	if(e.keyCode == 13){
 		emotes.push(value);
 		document.getElementById("emotein").parentNode.removeChild(document.getElementById("emotein"));
