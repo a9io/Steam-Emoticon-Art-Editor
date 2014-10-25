@@ -86,7 +86,7 @@ function detectbg(e){
 					}
 				}
 			}
-			if(prevvalue == -1) prevvalue = emotes.indexOf(value);
+			prevvalue = emotes.indexOf(value);
 		}
 	}
 }
@@ -96,7 +96,7 @@ function detectsize(e){
 	var h = document.getElementById("h").value;
 	if(e.keyCode == 13){
 		if(w <= 33 && h <= 40){
-			pic = makeArray(w, h, -1);
+			pic = makeArray(w, h, prevvalue);
 			canvas.width = pic[0].length*18;
 			canvas.height = pic.length*18;
 			document.getElementById("size").innerHTML = "size";
