@@ -9,7 +9,8 @@ var ui = {
 	setbg: document.getElementById("setbg"),
 	done: document.getElementById("done"),
 	clear: document.getElementById("clear"),
-	size: document.getElementById("size")
+	size: document.getElementById("size"),
+	emotein: document.getElementById("emotein")
 }
 var emotes = [];
 var pic = makeArray(20, 20, -1);
@@ -59,27 +60,27 @@ var render = function(){
 }
 
 function detectemote(e){
-	var value = document.getElementById("emotein").value.replace(/:/g,'');
+	var value = ui.emotein.value.replace(/:/g,'');
 	if(e.keyCode == 13){
 		if (emotes.indexOf(value) == -1) emotes.push(value);
-		document.getElementById("emotein").parentNode.removeChild(document.getElementById("emotein"));
+		ui.emotein.parentNode.removeChild(ui.emotein);
 		ui.addingEmote = false;
 		var el = new paintElem(value);
 		el.img.onload = function(){
 			document.getElementById("paints-container").appendChild(el.el);	
 		}
 		el.img.onerror = function(){
-			document.getElementById("adder").style.color = "red";
+			ui.adder.style.color = "red";
 		}
 	}
 }
 
 function detectbg(e){
-	var value = document.getElementById("emotein").value.replace(/:/g,'');
+	var value = ui.emotein.value.replace(/:/g,'');
 	if(e.keyCode == 13){
 		emotes.push(value);
-		document.getElementById("emotein").parentNode.removeChild(document.getElementById("emotein"));
-		document.getElementById("setbg").innerHTML = "background";
+		ui.emotein.parentNode.removeChild(ui.emotein);
+		ui.setbg.innerHTML = "background";
 		ui.addingEmote = false;
 		var img = new Image();
 		img.src = "http://cdn.steamcommunity.com/economy/emoticon/" + value;
@@ -104,7 +105,7 @@ function detectsize(e){
 			pic = makeArray(w, h, prevvalue);
 			canvas.width = pic[0].length*18;
 			canvas.height = pic.length*18;
-			document.getElementById("size").innerHTML = "size";
+			ui.size.innerHTML = "size";
 		}
 		ui.addingEmote = false;
 	}
@@ -131,13 +132,13 @@ var paintElem = function(e){
 
 ui.adder.onclick = function(){
 	if(!ui.addingEmote){
-		document.getElementById("adder").childNodes[0].innerHTML+= "<input type='text' id='emotein' placeholder='emoticon code' onkeypress='return detectemote(event)' autofocus>";
+		ui.adder.childNodes[0].innerHTML+= "<input type='text' id='emotein' placeholder='emoticon code' onkeypress='return detectemote(event)' autofocus>";
 		ui.addingEmote = true;
 	}
 }
 ui.setbg.onclick = function(){
 	if(!ui.addingEmote){
-		document.getElementById("setbg").innerHTML= "<input type='text' id='emotein' placeholder='emoticon code' onkeypress='return detectbg(event)' autofocus>";
+		ui.setbg.innerHTML= "<input type='text' id='emotein' placeholder='emoticon code' onkeypress='return detectbg(event)' autofocus>";
 		ui.addingEmote = true;
 	}
 }
@@ -153,7 +154,7 @@ ui.clear.onclick = function(){
 
 ui.size.onclick = function(){
 	if(!ui.addingEmote){
-		document.getElementById("size").innerHTML = "<input type='text' id='w' class='dimensionin' placeholder='w' onkeypress='return detectsize(event)' value='" + pic[0].length + "' autofocus> <input type='text' id='h' class='dimensionin' placeholder='h' onkeypress='return detectsize(event)' value='" + pic.length + "'>";
+		ui.size.innerHTML = "<input type='text' id='w' class='dimensionin' placeholder='w' onkeypress='return detectsize(event)' value='" + pic[0].length + "' autofocus> <input type='text' id='h' class='dimensionin' placeholder='h' onkeypress='return detectsize(event)' value='" + pic.length + "'>";
 		ui.addingEmote = true;
 	}
 }
@@ -177,7 +178,7 @@ ui.done.onclick = function(){
 		document.getElementById("output").select();
 	}
 	else {
-		document.getElementById("setbg").style.color = "red";
+		ui.setbg.style.color = "red";
 	}
 }
 
