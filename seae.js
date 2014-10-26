@@ -4,7 +4,12 @@ canvas.width = 360;
 canvas.height = 360;
 
 var ui = {
-	addingEmote: false
+	addingEmote: false,
+	adder: document.getElementById("adder"),
+	setbg: document.getElementById("setbg"),
+	done: document.getElementById("done"),
+	clear: document.getElementById("clear"),
+	size: document.getElementById("size")
 }
 var emotes = [];
 var pic = makeArray(20, 20, -1);
@@ -124,20 +129,20 @@ var paintElem = function(e){
 	this.el.appendChild(this.sub);
 }
 
-document.getElementById("adder").onclick = function(){
+ui.adder.onclick = function(){
 	if(!ui.addingEmote){
 		document.getElementById("adder").childNodes[0].innerHTML+= "<input type='text' id='emotein' placeholder='emoticon code' onkeypress='return detectemote(event)' autofocus>";
 		ui.addingEmote = true;
 	}
 }
-document.getElementById("setbg").onclick = function(){
+ui.setbg.onclick = function(){
 	if(!ui.addingEmote){
 		document.getElementById("setbg").innerHTML= "<input type='text' id='emotein' placeholder='emoticon code' onkeypress='return detectbg(event)' autofocus>";
 		ui.addingEmote = true;
 	}
 }
 
-document.getElementById("clear").onclick = function(){
+ui.clear.onclick = function(){
 	pic = makeArray(pic[0].length, pic.length, -1);
 	emotes = [];
 	prevvalue = -1;
@@ -146,14 +151,14 @@ document.getElementById("clear").onclick = function(){
 	}
 }
 
-document.getElementById("size").onclick = function(){
+ui.size.onclick = function(){
 	if(!ui.addingEmote){
 		document.getElementById("size").innerHTML = "<input type='text' id='w' class='dimensionin' placeholder='w' onkeypress='return detectsize(event)' value='" + pic[0].length + "' autofocus> <input type='text' id='h' class='dimensionin' placeholder='h' onkeypress='return detectsize(event)' value='" + pic.length + "'>";
 		ui.addingEmote = true;
 	}
 }
 
-document.getElementById("done").onclick = function(){
+ui.done.onclick = function(){
 	if(checkedIfEmpty(pic)){
 		var output = "";
 		for(var y=0; y<pic.length; y++){
