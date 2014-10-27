@@ -9,8 +9,7 @@ var ui = {
 	setbg: document.getElementById("setbg"),
 	done: document.getElementById("done"),
 	clear: document.getElementById("clear"),
-	size: document.getElementById("size"),
-	emotein: document.getElementById("emotein")
+	size: document.getElementById("size")
 }
 var emotes = [];
 var pic = makeArray(20, 20, -1);
@@ -60,10 +59,10 @@ var render = function(){
 }
 
 function detectemote(e){
-	var value = ui.emotein.value.replace(/:/g,'');
+	var value = document.getElementById("emotein").value.replace(/:/g,'');
 	if(e.keyCode == 13){
 		if (emotes.indexOf(value) == -1) emotes.push(value);
-		ui.emotein.parentNode.removeChild(ui.emotein);
+		document.getElementById("emotein").parentNode.removeChild(document.getElementById("emotein"));
 		ui.addingEmote = false;
 		var el = new paintElem(value);
 		el.img.onload = function(){
@@ -76,10 +75,10 @@ function detectemote(e){
 }
 
 function detectbg(e){
-	var value = ui.emotein.value.replace(/:/g,'');
+	var value = document.getElementById("emotein").value.replace(/:/g,'');
 	if(e.keyCode == 13){
 		emotes.push(value);
-		ui.emotein.parentNode.removeChild(ui.emotein);
+		document.getElementById("emotein").parentNode.removeChild(document.getElementById("emotein"));
 		ui.setbg.innerHTML = "background";
 		ui.addingEmote = false;
 		var img = new Image();
