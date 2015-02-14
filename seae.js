@@ -4,8 +4,13 @@ canvas.width = 360;
 canvas.height = 360;
 
 var ui = {
-	addingEmote: false
-}
+	addingEmote: false,
+	adder: document.getElementById("adder"),
+	setbg: document.getElementById("setbg"),
+	done: document.getElementById("done"),
+	clear: document.getElementById("clear"),
+	size: document.getElementById("size")
+};
 var emotes = [];
 var pic = makeArray(20, 20, -1);
 var selectedEmote = "";
@@ -39,7 +44,7 @@ var render = function(){
 	ctx.moveTo(0, pic.length*18);
 	ctx.lineTo(pic[0].length*18, pic.length*18);
 	ctx.stroke();
-	
+
 	for(var y=0; y<pic.length; y++){
 		for(var x=0; x<pic[y].length; x++){
 			if(pic[y][x] > -1){
@@ -49,9 +54,9 @@ var render = function(){
 			}
 		}
 	}
-	
+
 	requestAnimationFrame(render);
-}
+};
 
 function detectemote(e){
 	var value = document.getElementById("emotein").value.replace(/:/g,'');
@@ -61,11 +66,11 @@ function detectemote(e){
 		ui.addingEmote = false;
 		var el = new paintElem(value);
 		el.img.onload = function(){
-			document.getElementById("paints-container").appendChild(el.el);	
-		}
+			document.getElementById("paints-container").appendChild(el.el);
+		};
 		el.img.onerror = function(){
-			document.getElementById("adder").style.color = "red";
-		}
+			ui.adder.style.color = "red";
+		};
 	}
 }
 
@@ -74,7 +79,7 @@ function detectbg(e){
 	if(e.keyCode == 13){
 		emotes.push(value);
 		document.getElementById("emotein").parentNode.removeChild(document.getElementById("emotein"));
-		document.getElementById("setbg").innerHTML = "background";
+		ui.setbg.innerHTML = "background";
 		ui.addingEmote = false;
 		var img = new Image();
 		img.src = "http://cdn.steamcommunity.com/economy/emoticon/" + value;
@@ -87,7 +92,7 @@ function detectbg(e){
 				}
 			}
 			prevvalue = emotes.indexOf(value);
-		}
+		};
 	}
 }
 
@@ -99,7 +104,7 @@ function detectsize(e){
 			pic = makeArray(w, h, prevvalue);
 			canvas.width = pic[0].length*18;
 			canvas.height = pic.length*18;
-			document.getElementById("size").innerHTML = "size";
+			ui.size.innerHTML = "size";
 		}
 		ui.addingEmote = false;
 	}
@@ -117,43 +122,43 @@ var paintElem = function(e){
 	this.sub.oncontextmenu = function(){
 		document.getElementById(e).parentNode.removeChild(document.getElementById(e));
 		return false;
-	}
+	};
 	this.img = new Image();
 	this.img.src = "http://cdn.steamcommunity.com/economy/emoticon/" + e;
 	this.sub.appendChild(this.img);
 	this.el.appendChild(this.sub);
-}
+};
 
-document.getElementById("adder").onclick = function(){
+ui.adder.onclick = function(){
 	if(!ui.addingEmote){
-		document.getElementById("adder").childNodes[0].innerHTML+= "<input type='text' id='emotein' placeholder='emoticon code' onkeypress='return detectemote(event)' autofocus>";
+		ui.adder.childNodes[0].innerHTML+= "<input type='text' id='emotein' placeholder='emoticon code' onkeypress='return detectemote(event)' autofocus>";
 		ui.addingEmote = true;
 	}
-}
-document.getElementById("setbg").onclick = function(){
+};
+ui.setbg.onclick = function(){
 	if(!ui.addingEmote){
-		document.getElementById("setbg").innerHTML= "<input type='text' id='emotein' placeholder='emoticon code' onkeypress='return detectbg(event)' autofocus>";
+		ui.setbg.innerHTML= "<input type='text' id='emotein' placeholder='emoticon code' onkeypress='return detectbg(event)' autofocus>";
 		ui.addingEmote = true;
 	}
-}
+};
 
-document.getElementById("clear").onclick = function(){
+ui.clear.onclick = function(){
 	pic = makeArray(pic[0].length, pic.length, -1);
 	emotes = [];
 	prevvalue = -1;
 	while (document.getElementById("paints-container").childNodes.length > 3) {
-    	document.getElementById("paints-container").removeChild(document.getElementById("paints-container").lastChild);
+			document.getElementById("paints-container").removeChild(document.getElementById("paints-container").lastChild);
 	}
-}
+};
 
-document.getElementById("size").onclick = function(){
+ui.size.onclick = function(){
 	if(!ui.addingEmote){
-		document.getElementById("size").innerHTML = "<input type='text' id='w' class='dimensionin' placeholder='w' onkeypress='return detectsize(event)' value='" + pic[0].length + "' autofocus> <input type='text' id='h' class='dimensionin' placeholder='h' onkeypress='return detectsize(event)' value='" + pic.length + "'>";
+		ui.size.innerHTML = "<input type='text' id='w' class='dimensionin' placeholder='w' onkeypress='return detectsize(event)' value='" + pic[0].length + "' autofocus> <input type='text' id='h' class='dimensionin' placeholder='h' onkeypress='return detectsize(event)' value='" + pic.length + "'>";
 		ui.addingEmote = true;
 	}
-}
+};
 
-document.getElementById("done").onclick = function(){
+ui.done.onclick = function(){
 	if(checkedIfEmpty(pic)){
 		var output = "";
 		for(var y=0; y<pic.length; y++){
@@ -172,9 +177,9 @@ document.getElementById("done").onclick = function(){
 		document.getElementById("output").select();
 	}
 	else {
-		document.getElementById("setbg").style.color = "red";
+		ui.setbg.style.color = "red";
 	}
-}
+};
 
 var checkedIfEmpty = function(arr){
 	var found = true;
@@ -184,43 +189,43 @@ var checkedIfEmpty = function(arr){
 		}
 	}
 	return found;
-}
+};
 
 canvas.onmousedown = function(){
-    var event = event || window.event,
-    x = event.pageX - canvas.offsetLeft,
-    y = event.pageY - canvas.offsetTop,
-    arrX = 	Math.floor(x/18),
+		var event = event || window.event,
+		x = event.pageX - canvas.offsetLeft,
+		y = event.pageY - canvas.offsetTop,
+		arrX = 	Math.floor(x/18),
 	arrY = Math.floor(y/18);
 	if(validCoord(pic, arrX, arrY)) pic[arrY][arrX] = emotes.indexOf(selectedEmote);
 	mousedown = true;
-}
+};
 
 canvas.onmousemove = function(){
-	if(mousedown == true){
-    	var event = event || window.event,
-    	x = event.pageX - canvas.offsetLeft,
-    	y = event.pageY - canvas.offsetTop,
-    	arrX = 	Math.floor(x/18),
+	if(mousedown){
+			var event = event || window.event,
+			x = event.pageX - canvas.offsetLeft,
+			y = event.pageY - canvas.offsetTop,
+			arrX = 	Math.floor(x/18),
 		arrY = Math.floor(y/18);
 		if(validCoord(pic, arrX, arrY)) pic[arrY][arrX] = emotes.indexOf(selectedEmote);
 	}
-}
+};
 
 window.onmouseup = function(){
 	mousedown = false;
-}
+};
 
 canvas.oncontextmenu = function(){
 	mousedown = false;
-    var event = event || window.event,
-    x = event.pageX - canvas.offsetLeft,
-    y = event.pageY - canvas.offsetTop,
-    arrX = 	Math.floor(x/18),
+		var event = event || window.event,
+		x = event.pageX - canvas.offsetLeft,
+		y = event.pageY - canvas.offsetTop,
+		arrX = 	Math.floor(x/18),
 	arrY = Math.floor(y/18);
-	pic[arrY][arrX] = -1;
+	pic[arrY][arrX] = prevvalue;
 	return false;
-}
+};
 
 function validCoord(arr, x, y){
 	if(x < arr[0].length && y < arr.length){
@@ -231,30 +236,30 @@ function validCoord(arr, x, y){
 function select(e){
 	if(emotes.indexOf(e) > -1){
 		curs = document.getElementsByClassName("selected");
-		if (curs.length > 0) curs[0].className = ""
+		if (curs.length > 0) curs[0].className = "";
 		document.getElementById(e).className = "selected";
 		selectedEmote = e;
 	}
 }
 
 window.requestAnimationFrame = (function(){
-  return  window.requestAnimationFrame       ||
-          window.webkitRequestAnimationFrame ||
-          window.mozRequestAnimationFrame    ||
-          function( callback ){
-            window.setTimeout(callback, 1000 / 60);
-          };
+	return  window.requestAnimationFrame       ||
+					window.webkitRequestAnimationFrame ||
+					window.mozRequestAnimationFrame    ||
+					function( callback ){
+						window.setTimeout(callback, 1000 / 60);
+					};
 })();
 
 function makeArray(w, h, val) {
-    var arr = [];
-    for(i = 0; i < h; i++) {
-        arr[i] = [];
-        for(j = 0; j < w; j++) {
-            arr[i][j] = val;
-        }
-    }
-    return arr;
+		var arr = [];
+		for(i = 0; i < h; i++) {
+				arr[i] = [];
+				for(j = 0; j < w; j++) {
+						arr[i][j] = val;
+				}
+		}
+		return arr;
 }
 
 render();
