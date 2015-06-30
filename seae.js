@@ -147,7 +147,7 @@ ui.clear.onclick = function(){
 	emotes = [];
 	prevvalue = -1;
 	while (document.getElementById("paints-container").childNodes.length > 3) {
-    	document.getElementById("paints-container").removeChild(document.getElementById("paints-container").lastChild);
+			document.getElementById("paints-container").removeChild(document.getElementById("paints-container").lastChild);
 	}
 };
 
@@ -192,10 +192,10 @@ var checkedIfEmpty = function(arr){
 };
 
 canvas.onmousedown = function(){
-    var event = event || window.event,
-    x = event.pageX - canvas.offsetLeft,
-    y = event.pageY - canvas.offsetTop,
-    arrX = 	Math.floor(x/18),
+		var event = event || window.event,
+		x = event.pageX - canvas.offsetLeft,
+		y = event.pageY - canvas.offsetTop,
+		arrX = 	Math.floor(x/18),
 	arrY = Math.floor(y/18);
 	if(validCoord(pic, arrX, arrY)) pic[arrY][arrX] = emotes.indexOf(selectedEmote);
 	mousedown = true;
@@ -203,10 +203,17 @@ canvas.onmousedown = function(){
 
 canvas.onmousemove = function(){
 	if(mousedown){
+<<<<<<< HEAD
     	var event = event || window.event,
     	x = event.pageX - canvas.offsetLeft,
     	y = event.pageY - canvas.offsetTop,
     	arrX = 	Math.floor(x/18),
+=======
+			var event = event || window.event,
+			x = event.pageX - canvas.offsetLeft,
+			y = event.pageY - canvas.offsetTop,
+			arrX = 	Math.floor(x/18),
+>>>>>>> master
 		arrY = Math.floor(y/18);
 		if(validCoord(pic, arrX, arrY)) pic[arrY][arrX] = emotes.indexOf(selectedEmote);
 	}
@@ -218,10 +225,10 @@ window.onmouseup = function(){
 
 canvas.oncontextmenu = function(){
 	mousedown = false;
-    var event = event || window.event,
-    x = event.pageX - canvas.offsetLeft,
-    y = event.pageY - canvas.offsetTop,
-    arrX = 	Math.floor(x/18),
+		var event = event || window.event,
+		x = event.pageX - canvas.offsetLeft,
+		y = event.pageY - canvas.offsetTop,
+		arrX = 	Math.floor(x/18),
 	arrY = Math.floor(y/18);
 	pic[arrY][arrX] = prevvalue;
 	return false;
@@ -243,23 +250,23 @@ function select(e){
 }
 
 window.requestAnimationFrame = (function(){
-  return  window.requestAnimationFrame       ||
-          window.webkitRequestAnimationFrame ||
-          window.mozRequestAnimationFrame    ||
-          function( callback ){
-            window.setTimeout(callback, 1000 / 60);
-          };
+	return  window.requestAnimationFrame       ||
+					window.webkitRequestAnimationFrame ||
+					window.mozRequestAnimationFrame    ||
+					function( callback ){
+						window.setTimeout(callback, 1000 / 60);
+					};
 })();
 
 function makeArray(w, h, val) {
-    var arr = [];
-    for(i = 0; i < h; i++) {
-        arr[i] = [];
-        for(j = 0; j < w; j++) {
-            arr[i][j] = val;
-        }
-    }
-    return arr;
+		var arr = [];
+		for(i = 0; i < h; i++) {
+				arr[i] = [];
+				for(j = 0; j < w; j++) {
+						arr[i][j] = val;
+				}
+		}
+		return arr;
 }
 
 render();
