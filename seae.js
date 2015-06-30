@@ -203,10 +203,17 @@ canvas.onmousedown = function(){
 
 canvas.onmousemove = function(){
 	if(mousedown){
+<<<<<<< HEAD
+    	var event = event || window.event,
+    	x = event.pageX - canvas.offsetLeft,
+    	y = event.pageY - canvas.offsetTop,
+    	arrX = 	Math.floor(x/18),
+=======
 			var event = event || window.event,
 			x = event.pageX - canvas.offsetLeft,
 			y = event.pageY - canvas.offsetTop,
 			arrX = 	Math.floor(x/18),
+>>>>>>> master
 		arrY = Math.floor(y/18);
 		if(validCoord(pic, arrX, arrY)) pic[arrY][arrX] = emotes.indexOf(selectedEmote);
 	}
