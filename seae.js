@@ -49,7 +49,7 @@ var render = function() {
 		for (var x = 0; x < pic[y].length; x++) {
 			if (pic[y][x] > -1) {
 				var Img = new Image();
-				Img.src = "http://cdn.steamcommunity.com/economy/emoticon/" + emotes[pic[y][x]];
+				Img.src = "https://steamcommunity-a.akamaihd.net/economy/emoticon/:" + emotes[pic[y][x]] + ":";
 				ctx.drawImage(Img, x * 18, y * 18);
 			}
 		}
@@ -82,7 +82,7 @@ function detectbg(e) {
 		ui.setbg.innerHTML = "background";
 		ui.addingEmote = false;
 		var img = new Image();
-		img.src = "http://cdn.steamcommunity.com/economy/emoticon/" + value;
+		img.src = "https://steamcommunity-a.akamaihd.net/economy/emoticon/:" + value + ":";
 		img.onload = function() {
 			for (var y = 0; y < pic.length; y++) {
 				for (var x = 0; x < pic[y].length; x++) {
@@ -124,7 +124,7 @@ var paintElem = function(e) {
 		return false;
 	};
 	this.img = new Image();
-	this.img.src = "http://cdn.steamcommunity.com/economy/emoticon/" + e;
+	this.img.src = "https://steamcommunity-a.akamaihd.net/economy/emoticon/:" + e + ":";
 	this.sub.appendChild(this.img);
 	this.el.appendChild(this.sub);
 };
